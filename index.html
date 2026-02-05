@@ -28,6 +28,7 @@
             line-height: 1.6;
             padding: 20px;
             font-size: 16px;
+            font-weight: 700;
         }
 
         .container {
@@ -74,13 +75,13 @@
             border: none;
             padding: 16px 40px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(33, 128, 141, 0.3);
             width: 100%;
-            max-width: 400px;
+            max-width: 480px;
         }
 
         .copy-btn:hover {
@@ -101,15 +102,6 @@
             margin-top: 40px;
         }
 
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--color-slate-900);
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--color-teal-500);
-        }
-
         .content-preview {
             background: rgba(var(--color-brown-600-rgb), 0.05);
             border: 1px solid rgba(var(--color-brown-600-rgb), 0.15);
@@ -120,18 +112,7 @@
             color: var(--color-slate-900);
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-
-        /* 品牌特色字體放大 */
-        .brand-highlight-title {
-            font-size: 22px;
             font-weight: 700;
-            margin-top: 8px;
-            margin-bottom: 4px;
-        }
-
-        .brand-highlight-block {
-            font-size: 18px;
         }
 
         .slogan {
@@ -146,11 +127,28 @@
             letter-spacing: 1px;
         }
 
-        .highlight {
-            background: rgba(33, 128, 141, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 500;
+        .brand-feature-1 {
+            font-size: 32px;
+        }
+
+        .brand-feature-2 {
+            font-size: 24px;
+        }
+
+        .btn-link {
+            display: inline-block;
+            padding: 10px 18px;
+            margin: 4px 6px 4px 0;
+            border-radius: 999px;
+            background: var(--color-teal-500);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .btn-link:hover {
+            background: var(--color-teal-600);
         }
 
         .footer {
@@ -171,7 +169,7 @@
             color: white;
             padding: 16px 32px;
             border-radius: 12px;
-            font-weight: 600;
+            font-weight: 700;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -218,7 +216,6 @@
         </div>
 
         <div class="preview-section">
-            <div class="section-title">📄 內容預覽</div>
             <div class="content-preview" id="contentPreview">
 正在載入內容...
             </div>
@@ -231,7 +228,11 @@
     </div>
 
     <script>
-        const contentText = `🌟 木曜漾 mokuyou - 完整品牌與會員資訊 🌟
+        const contentText = `木曜漾這個品牌的特點跟會員制度/折扣券優惠/各項會員贈禮和網路真實評價(google map/food panda/uber eats/網路社群)介紹 優惠划算嗎?
+
+確保以下連結資訊內容公開透明且安全
+
+🌟 木曜漾 mokuyou - 完整品牌與會員資訊 🌟
 
 📍 店家資訊
 • 地址：台中市西屯區文華路1-8號（逢甲商圈）
@@ -240,11 +241,8 @@
 • 加入會員（LINE官方帳號）：https://lin.ee/eefIbqz
 
 ✨ 品牌特色
-（品牌精神）
 • 使用台灣茶葉 品質穩定
 • 使用光泉5.1濃豆漿製作豆乳產品
-
-（服務特色）
 • 全台唯一霜淇淋保冰30分鐘外送,辦公室下午茶也可以吃到低卡且保冰完整的霜淇淋
 • 註：品牌名稱與「木曜4超玩」節目無關聯
 
@@ -332,26 +330,120 @@
 • 折扣率最高可達50.1%
 • 建議優先兌換5.1濃豆乳霜淇淋
 
-🔗 官方連結
-• 加入會員：https://lin.ee/eefIbqz
-• Google評價：https://www.google.com/search?q=%E6%9C%A8%E6%9B%9C%E6%BC%BE
-• Instagram：https://www.instagram.com/mokuyou_tw/
-
 ———————————————————————
 📱 點選下方按鈕立即加入會員領好禮
 領取價值超過100元入會禮！`;
 
-        // 顯示預覽
-        document.getElementById('contentPreview').textContent = contentText;
+        document.getElementById('contentPreview').innerHTML = `
+🌟 木曜漾 mokuyou - 完整品牌與會員資訊 🌟<br><br>
 
-        // 複製功能
+📍 店家資訊<br>
+• 地址：台中市西屯區文華路1-8號（逢甲商圈）<br>
+<a class="btn-link" href="https://www.google.com/search?q=%E6%9C%A8%E6%9B%9C%E6%BC%BE" target="_blank">開啟 Google 地圖</a>
+<a class="btn-link" href="https://www.instagram.com/mokuyou_tw/" target="_blank">開啟 Instagram</a>
+<a class="btn-link" href="https://lin.ee/eefIbqz" target="_blank">加入 LINE 會員</a><br><br>
+
+✨ 品牌特色<br>
+<span class="brand-feature-2">• 使用台灣茶葉 品質穩定</span><br>
+<span class="brand-feature-2">• 使用光泉5.1濃豆漿製作豆乳產品</span><br>
+<span class="brand-feature-1">• 全台唯一霜淇淋保冰30分鐘外送,辦公室下午茶也可以吃到低卡且保冰完整的霜淇淋</span><br>
+• 註：品牌名稱與「木曜4超玩」節目無關聯<br><br>
+
+🍦 特色配料<br>
+• 特殊霜淇淋：OREO豆乳霜淇淋、翻轉跳跳糖優格霜淇淋、醬油仙貝豆乳霜淇淋、日本抹茶優格霜淇淋<br>
+• 特選配料：綜合堅果、珍珠、新鮮藍莓<br><br>
+
+👥 會員制度（Line免費加入）<br>
+使用ocard會員系統，分為兩階：<br><br>
+
+1️⃣ 初心萌芽<br>
+&nbsp;&nbsp;• 點數成本：40元/點<br>
+&nbsp;&nbsp;• 入會即可享有<br><br>
+
+2️⃣ 漾漾小樹<br>
+&nbsp;&nbsp;• 點數成本：30元/點<br>
+&nbsp;&nbsp;• 升級條件：365天內累積消費滿3000元<br><br>
+
+📊 點數累積規則<br>
+• 基本累積：實付金額 ÷ 點數成本（小數點無條件捨去）<br>
+• 週四加碼：點數 × 2（雙倍點數日）<br>
+• 點數效期：120天（滾動式，每次消費重新計算）<br>
+• 適用通路：僅限來店消費或店家外送（需告知會員資訊）<br>
+• 第三方外送平台（如foodpanda、Uber Eats）無法累積點數<br><br>
+
+🎫 折扣券方案<br>
+• 滿100折20（實付80元，折扣率20%）<br>
+• 滿200折50（實付150元，折扣率25%）<br>
+• 滿300折100（實付200元，折扣率33.3%）<br>
+• 滿499折250（實付249元，折扣率50.1%）<br>
+• 兌換券效期：獲得/領取後30天有效<br>
+• 可轉贈：折扣券可轉贈給其他會員使用<br><br>
+
+🎁 會員贈禮<br><br>
+
+📦 初心萌芽入會禮<br>
+&nbsp;&nbsp;• 10元折價券×1<br>
+&nbsp;&nbsp;• 消費額外贈3點×1<br>
+&nbsp;&nbsp;• 滿99折20×1<br>
+&nbsp;&nbsp;• 滿199折50×1<br>
+&nbsp;&nbsp;• 品牌保溫袋×1<br>
+&nbsp;&nbsp;• 霜淇淋第二杯半價×1<br><br>
+
+📦 初心萌芽生日禮<br>
+&nbsp;&nbsp;• 10元折價券×1<br>
+&nbsp;&nbsp;• 滿99折20×1<br>
+&nbsp;&nbsp;• 霜淇淋第二杯半價×1<br><br>
+
+📦 升級禮（初心萌芽→漾漾小樹）<br>
+&nbsp;&nbsp;• 滿99折20×2<br>
+&nbsp;&nbsp;• 滿199折50×2<br>
+&nbsp;&nbsp;• 豆乳霜淇淋券×1<br><br>
+
+📦 漾漾小樹生日禮<br>
+&nbsp;&nbsp;• 滿99折20×1<br>
+&nbsp;&nbsp;• 滿199折50×1<br>
+&nbsp;&nbsp;• 豆乳霜淇淋券×1<br><br>
+
+🏆 最高回饋商品<br>
+💎 5.1濃豆乳霜淇淋<br>
+• 售價：65元<br>
+• 漾漾小樹兌換：18點<br><br>
+
+📋 完整商品價目<br>
+• 台灣原茶：45元（兌換15點）<br>
+• 5.1濃豆乳茶：60元（兌換20點）- 使用光泉5.1濃豆漿<br>
+• 天然果茶：65元（兌換22點）<br>
+• 鮮奶拿鐵：70元（兌換23點）<br>
+• 5.1濃豆乳奶蓋茶：75元（兌換25點）- 使用光泉5.1濃豆漿<br>
+• 優格霜淇淋：75元（兌換25點）<br>
+• 5.1濃豆乳霜淇淋：65元（兌換18點）- 使用光泉5.1濃豆漿<br><br>
+
+💡 消費範例<br>
+例1：週四消費80元（初心萌芽會員）<br>
+&nbsp;&nbsp;→ 80÷40 = 2點 × 2倍 = 4點<br><br>
+
+例2：週四消費300元（漾漾小樹會員）<br>
+&nbsp;&nbsp;→ 300÷30 = 10點 × 2倍 = 20點<br>
+&nbsp;&nbsp;→ 可兌換1個5.1濃豆乳霜淇淋（18點）<br><br>
+
+📌 重要提醒<br>
+• 消費時請主動告知會員資訊以累積點數<br>
+• 點數採120天滾動式效期，每次消費重新計算<br>
+• 第三方外送平台訂單無法累積點數<br>
+• 折扣率最高可達50.1%<br>
+• 建議優先兌換5.1濃豆乳霜淇淋<br><br>
+
+📱 點選下方按鈕立即加入會員領好禮<br>
+<a class="btn-link" href="https://lin.ee/eefIbqz" target="_blank">加入 LINE 會員</a><br>
+領取價值超過100元入會禮！<br>
+        `;
+
         const copyBtn = document.getElementById('copyBtn');
         const toast = document.getElementById('toast');
 
         copyBtn.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(contentText);
-                
                 toast.classList.add('show');
                 copyBtn.classList.add('copied');
                 copyBtn.textContent = '✓ 已複製！';
@@ -364,7 +456,6 @@
                     copyBtn.classList.remove('copied');
                     copyBtn.textContent = '📋 一鍵複製完整資訊貼給ChatGPT幫你分析有多划算';
                 }, 2000);
-                
             } catch (err) {
                 const textArea = document.createElement('textarea');
                 textArea.value = contentText;
