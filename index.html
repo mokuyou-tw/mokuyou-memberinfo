@@ -114,11 +114,9 @@
             border: 1px solid rgba(var(--color-brown-600-rgb), 0.15);
             border-radius: 12px;
             padding: 20px;
-            font-size: 20px;
+            font-size: 14px;
             line-height: 1.8;
             color: var(--color-slate-900);
-            max-height: 400px;
-            overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
         }
@@ -159,38 +157,6 @@
             opacity: 1;
         }
 
-        .slogan-banner {
-            background: linear-gradient(135deg, rgba(33, 128, 141, 0.15) 0%, rgba(33, 128, 141, 0.25) 100%);
-            border: 2px solid var(--color-teal-500);
-            border-radius: 12px;
-            padding: 16px 24px;
-            margin-bottom: 24px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(33, 128, 141, 0.2);
-        }
-
-        .slogan-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--color-teal-600);
-            letter-spacing: 1px;
-            margin: 0 12px;
-        }
-
-        .slogan-icon {
-            font-size: 28px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -204,14 +170,6 @@
                 font-size: 16px;
                 padding: 14px 32px;
             }
-
-            .slogan-text {
-                font-size: 18px;
-            }
-
-            .slogan-icon {
-                font-size: 22px;
-            }
         }
     </style>
 </head>
@@ -219,12 +177,6 @@
     <div class="toast" id="toast">✓ 已複製到剪貼簿！</div>
     
     <div class="container">
-        <div class="slogan-banner">
-            <span class="slogan-icon">🎉</span>
-            <span class="slogan-text">週四木曜漾 點數雙倍拿五折優惠</span>
-            <span class="slogan-icon">🎁</span>
-        </div>
-        
         <div class="header">
             <div>
                 <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/283d29aa-d838-4a00-8f15-a4566cd8eaad" alt="木曜漾商標" class="brand-logo">
@@ -248,9 +200,7 @@
     </div>
 
     <script>
-        const contentText = `週四木曜漾 點數雙倍拿五折優惠
-
-🌟 木曜漾 mokuyou - 完整品牌與會員資訊 🌟
+        const contentText = `🌟 木曜漾 mokuyou - 完整品牌與會員資訊 🌟
 
 📍 店家資訊
 • 地址：台中市西屯區文華路1-8號（逢甲商圈）
@@ -261,7 +211,6 @@
 ✨ 品牌特色
 • 全台唯一霜淇淋保冰30分鐘外送,辦公室下午茶也可以吃到低卡且保冰完整的霜淇淋
 • 使用光泉5.1濃豆漿製作豆乳產品
-• 使用台灣茶葉 品質穩定
 • 註：品牌名稱與「木曜4超玩」節目無關聯
 
 🍦 特色配料
@@ -368,12 +317,10 @@
             try {
                 await navigator.clipboard.writeText(contentText);
                 
-                // 顯示成功提示
                 toast.classList.add('show');
                 copyBtn.classList.add('copied');
                 copyBtn.textContent = '✓ 已複製！';
                 
-                // 3秒後恢復按鈕狀態
                 setTimeout(() => {
                     toast.classList.remove('show');
                 }, 3000);
@@ -384,7 +331,6 @@
                 }, 2000);
                 
             } catch (err) {
-                // 如果瀏覽器不支援 clipboard API，使用備用方法
                 const textArea = document.createElement('textarea');
                 textArea.value = contentText;
                 textArea.style.position = 'fixed';
