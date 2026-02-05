@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>木曜漾 mokuyou - 會員資訊</title>
+    <style>
+        :root {
+            --color-primary: #32b8c6;
+            --color-primary-hover: #2da6b2;
+            --color-bg: #fcfcf9;
+            --color-surface: #fffffe;
+            --color-text: #1f2121;
+            --color-text-secondary: #626c71;
+            --color-border: rgba(94, 82, 64, 0.2);
+            --color-success: #21808d;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #1f2121;
+                --color-surface: #262828;
+                --color-text: #f5f5f5;
+                --color-text-secondary: rgba(167, 169, 169, 0.7);
+                --color-border: rgba(119, 124, 124, 0.3);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .location {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 24px;
+        }
+
+        .copy-btn:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(50, 184, 198, 0.3);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: var(--color-success);
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .content-box {
+            background: var(--color-bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            margin-bottom: 12px;
+        }
+
+        .feature-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .tier-card {
+            background: var(--color-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .discount-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .discount-table th,
+        .discount-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .discount-table th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: rgba(50, 184, 198, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .link-btn {
+            display: block;
+            padding: 12px;
+            background: var(--color-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            color: var(--color-text);
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .link-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .copy-btn {
+                font-size: 16px;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand-name">木曜漾 mokuyou</div>
+            <div class="location">📍 台中市西屯區文華路1-8號 (逢甲商圈)</div>
+        </div>
+
+        <button class="copy-btn" onclick="copyContent()">
+            📋 一鍵複製完整會員資訊
+        </button>
+
+        <div class="section">
+            <div class="section-title">🌟 品牌特色</div>
+            <div class="content-box">
+                <div class="feature-item">全台唯一霜淇淋保冰30分鐘外送</div>
+                <div class="feature-item">光泉5.1濃豆漿製作（豆乳產品）</div>
+                <div class="feature-item">特殊風味霜淇淋：OREO豆乳、翻轉跳跳糖優格、醬油仙貝豆乳、日本抹茶優格</div>
+                <div class="feature-item">特色配料：綜合堅果、珍珠、新鮮藍莓</div>
+                <div class="note">※ 品牌名稱與「木曜4超玩」無關聯</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💎 會員制度（免費加入）</div>
+            <div class="tier-card">
+                <strong>初心萌芽</strong><br>
+                點數成本：40元/點<br>
+                入會即享此等級
+            </div>
+            <div class="tier-card">
+                <strong>漾漾小樹 ⭐</strong><br>
+                點數成本：30元/點<br>
+                條件：365天內累積消費3000元
+            </div>
+            <div class="content-box">
+                <strong>點數規則：</strong><br>
+                • 基本：實付金額 ÷ 點數成本（小數點無條件捨去）<br>
+                • <span class="highlight">週四點數×2</span><br>
+                • 點數效期：120天（滾動式）<br>
+                • 僅限來店消費或店家外送（需告知會員資訊）<br>
+                • 使用ocard會員系統
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎫 折扣券優惠</div>
+            <table class="discount-table">
+                <thead>
+                    <tr>
+                        <th>折扣券</th>
+                        <th>實付金額</th>
+                        <th>折扣率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>滿100折20</td>
+                        <td>80元</td>
+                        <td>20%</td>
+                    </tr>
+                    <tr>
+                        <td>滿200折50</td>
+                        <td>150元</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <td>滿300折100</td>
+                        <td>200元</td>
+                        <td>33.3%</td>
+                    </tr>
+                    <tr>
+                        <td>滿499折250</td>
+                        <td>249元</td>
+                        <td class="highlight">50.1%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="note">※ 兌換券獲得/領取後30天有效，可轉贈其他會員</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎁 會員贈禮</div>
+            <div class="content-box">
+                <strong>入會禮（價值150元）</strong><br>
+                10元券×1 + 滿100折20×2 + 滿200折50×2
+            </div>
+            <div class="content-box">
+                <strong>升級禮（價值170元）</strong><br>
+                滿100折20×1 + 滿200折50×1 + 滿300折100×1
+            </div>
+            <div class="content-box">
+                <strong>每月禮</strong><br>
+                初心萌芽（30元）：10元券×1 + 滿100折20×1<br>
+                漾漾小樹（70元）：滿100折20×1 + 滿200折50×1
+            </div>
+            <div class="content-box">
+                <strong>生日禮</strong><br>
+                初心（115元）：滿200折50×1 + 豆乳霜淇淋×1<br>
+                小樹（215元）：滿200折50×1 + 滿300折100×1 + 豆乳霜淇淋×1
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⭐ 最高CP值推薦</div>
+            <div class="content-box">
+                <strong>5.1濃豆乳霜淇淋</strong><br>
+                售價：65元<br>
+                漾漾小樹兌換：18點<br>
+                <span class="highlight">期望回報：12.04%（最高）</span><br>
+                <span class="highlight">價值倍數：8.3倍</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📝 消費範例</div>
+            <div class="content-box">
+                <strong>範例1：</strong>週四消費80元（初心）→ 2點×2 = 4點<br>
+                <strong>範例2：</strong>週四消費300元（小樹）→ 10點×2 = 20點 → 可換5.1濃豆乳霜淇淋<br>
+                <strong>範例3：</strong>12/24消費300元（小樹）→ 10點×4 = 40點 → 可換2個5.1濃豆乳霜淇淋
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔗 快速連結</div>
+            <div class="links">
+                <a href="https://lin.ee/eefIbqz" class="link-btn" target="_blank" rel="noopener noreferrer">
+                    加入LINE官方帳號（會員註冊）
+                </a>
+                <a href="https://www.google.com/search?q=%E6%9C%A8%E6%9B%9C%E6%BC%BE" class="link-btn" target="_blank" rel="noopener noreferrer">
+                    Google地圖評價查詢
+                </a>
+                <a href="https://www.instagram.com/mokuyou_tw/" class="link-btn" target="_blank" rel="noopener noreferrer">
+                    Instagram官方帳號
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="note">
+                ※ 第三方外送平台（Food Panda/Uber Eats）無法累積點數<br>
+                ※ 消費時請主動告知會員資訊方可累積點數<br>
+                ※ 所有資訊以店家公告為準
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">✓ 已複製到剪貼簿！</div>
+
+    <script>
+        function copyContent() {
+            const content = `木曜漾 mokuyou - 會員資訊完整版
+
+📍 地址：台中市西屯區文華路1-8號（逢甲商圈）
+
+🌟 品牌特色
+✓ 全台唯一霜淇淋保冰30分鐘外送
+✓ 光泉5.1濃豆漿製作（豆乳產品）
+✓ 特殊風味霜淇淋：OREO豆乳、翻轉跳跳糖優格、醬油仙貝豆乳、日本抹茶優格
+✓ 特色配料：綜合堅果、珍珠、新鮮藍莓
+※ 品牌名稱與「木曜4超玩」無關聯
+
+💎 會員制度（免費加入，使用ocard會員系統）
+【初心萌芽】點數成本：40元/點（入會即享）
+【漾漾小樹⭐】點數成本：30元/點（365天內累積消費3000元）
+
+點數規則：
+• 基本：實付金額 ÷ 點數成本（小數點無條件捨去）
+• 週四點數×2 ⭐
+• 點數效期：120天（滾動式）
+• 僅限來店消費或店家外送（需告知會員資訊）
+• 第三方外送平台無法累積點數
+
+🎫 折扣券優惠
+滿100折20 → 實付80元（折扣率20%）
+滿200折50 → 實付150元（折扣率25%）
+滿300折100 → 實付200元（折扣率33.3%）
+滿499折250 → 實付249元（折扣率50.1%）⭐
+※ 兌換券獲得/領取後30天有效，可轉贈其他會員
+
+🎁 會員贈禮
+【入會禮】價值150元
+10元券×1 + 滿100折20×2 + 滿200折50×2
+
+【升級禮】價值170元
+滿100折20×1 + 滿200折50×1 + 滿300折100×1
+
+【每月禮】
+初心萌芽（30元）：10元券×1 + 滿100折20×1
+漾漾小樹（70元）：滿100折20×1 + 滿200折50×1
+
+【生日禮】
+初心（115元）：滿200折50×1 + 豆乳霜淇淋×1
+小樹（215元）：滿200折50×1 + 滿300折100×1 + 豆乳霜淇淋×1
+
+⭐ 最高CP值推薦
+【5.1濃豆乳霜淇淋】
+售價：65元
+漾漾小樹兌換：18點
+期望回報：12.04%（最高）
+價值倍數：8.3倍
+
+📋 主要產品
+• 台灣原茶：45元（15點）
+• 5.1濃豆乳茶：60元（20點）- 光泉5.1濃豆漿
+• 天然果茶：65元（22點）
+• 鮮奶拿鐵：70元（23點）
+• 5.1濃豆乳奶蓋茶：75元（25點）- 光泉5.1濃豆漿
+• 優格霜淇淋：75元（25點）
+
+📝 消費範例
+範例1：週四消費80元（初心）→ 2點×2 = 4點
+範例2：週四消費300元（小樹）→ 10點×2 = 20點 → 可換5.1濃豆乳霜淇淋
+範例3：12/24消費300元（小樹）→ 10點×4 = 40點 → 可換2個5.1濃豆乳霜淇淋
+
+🔗 快速連結
+加入會員（LINE官方帳號）：https://lin.ee/eefIbqz
+Google地圖評價：https://www.google.com/search?q=%E6%9C%A8%E6%9B%9C%E6%BC%BE
+Instagram：https://www.instagram.com/mokuyou_tw/
+
+📌 網路評價查詢
+• Google Map：搜尋「木曜漾」查看真實顧客評價
+• Food Panda：搜尋「木曜漾」查看外送評分
+• Uber Eats：搜尋「木曜漾」查看外送評分
+• 社群媒體：Instagram @mokuyou_tw
+
+💡 重要提醒
+※ 消費時請主動告知會員資訊方可累積點數
+※ 第三方外送平台無法累積點數
+※ 所有資訊以店家公告為準
+
+對比其他台灣手搖飲品牌特色：
+✓ 獨特豆乳系列（使用光泉5.1濃豆漿）
+✓ 創新霜淇淋口味（OREO豆乳、跳跳糖、醬油仙貝）
+✓ 全台唯一30分鐘保冰外送
+✓ 高回饋會員制度（週四雙倍點數）
+✓ 高折扣率（最高50.1%）
+✓ 豐富會員贈禮（入會、升級、每月、生日）
+✓ 透明公開的點數與折扣機制`;
+
+            navigator.clipboard.writeText(content).then(() => {
+                const toast = document.getElementById('toast');
+                const btn = document.querySelector('.copy-btn');
+                
+                toast.classList.add('show');
+                btn.classList.add('copied');
+                btn.textContent = '✓ 已複製！';
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.textContent = '📋 一鍵複製完整會員資訊';
+                }, 3000);
+            }).catch(err => {
+                alert('複製失敗，請手動複製內容');
+                console.error('複製失敗:', err);
+            });
+        }
+    </script>
+</body>
+</html>
+
